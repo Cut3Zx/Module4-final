@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Giao Dịch</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="page-header">
+        <h1>📄 Chi Tiết Giao Dịch</h1>
+    </div>
+
+    <!-- Detail -->
+    <div class="detail-container">
+        <table class="detail-table">
+            <tr>
+                <td>Mã Giao Dịch</td>
+                <td th:text="${giaoDich.maGiaoDich}"></td>
+            </tr>
+            <tr>
+                <td>Loại Bất Động Sản</td>
+                <td th:text="${giaoDich.loaiDichVu}"></td>
+            </tr>
+            <tr>
+                <td>Ngày Giao Dịch</td>
+                <td th:text="${giaoDich.ngayGiaoDich}"></td>
+            </tr>
+            <tr>
+                <td>Đơn Giá (VND/m²)</td>
+                <td th:text="${#numbers.formatDecimal(giaoDich.donGia, 0, 'COMMA', 0, 'POINT')}"></td>
+            </tr>
+            <tr>
+                <td>Diện Tích (m²)</td>
+                <td th:text="${giaoDich.dienTich}"></td>
+            </tr>
+            <tr>
+                <td>Tên Khách Hàng</td>
+                <td th:text="${giaoDich.khachHang.tenKhachHang}"></td>
+            </tr>
+            <tr>
+                <td>Số Điện Thoại</td>
+                <td th:text="${giaoDich.khachHang.soDienThoai}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td th:text="${giaoDich.khachHang.email}"></td>
+            </tr>
+        </table>
+
+        <!-- Buttons -->
+        <div class="detail-actions">
+            <a th:href="@{/giao-dich}" class="btn btn-secondary">↩ Quay Lại</a>
+            <button class="btn btn-danger" id="btnXoa"
+                    th:data-url="@{/giao-dich/xoa/{id}(id=${giaoDich.maGiaoDich})}">
+                🗑 Xóa
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('btnXoa').addEventListener('click', function () {
+        var url = this.getAttribute('data-url');
+        if (confirm('Bạn có muốn xóa giao dịch này không?')) {
+            window.location.href = url;
+        }
+    });
+</script>
+</body>
+</html>

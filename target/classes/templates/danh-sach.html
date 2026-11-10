@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Giao Dịch Nhà Đất</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <!-- Header -->
+    <div class="page-header">
+        <h1>📋 Quản Lý Giao Dịch Nhà Đất</h1>
+    </div>
+
+    <!-- Thông báo thành công -->
+    <div class="alert alert-success" th:if="${successMessage}">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Bảng danh sách -->
+    <div class="table-container">
+        <!-- Toolbar: Thêm mới + Tìm kiếm -->
+        <div class="toolbar">
+            <a th:href="@{/giao-dich/them-moi}" class="btn btn-success">➕ Thêm Mới</a>
+
+            <form class="search-form" th:action="@{/giao-dich/tim-kiem}" method="get">
+                <input type="text" name="tenKhachHang" placeholder="Tên khách hàng..."
+                       th:value="${tenKhachHang}">
+                <select name="loaiDichVu">
+                    <option value="">-- Loại dịch vụ --</option>
+                    <option value="Đất" th:selected="${loaiDichVu == 'Đất'}">Đất</option>
+                    <option value="Nhà và đất" th:selected="${loaiDichVu == 'Nhà và đất'}">Nhà và đất</option>
+                </select>
+                <button type="submit" class="btn btn-search">🔍 Tìm Kiếm</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã Giao Dịch</th>
+                <th>Tên Khách Hàng</th>
+                <th>Loại Dịch Vụ</th>
+                <th>Ngày Giao Dịch</th>
+                <th>Đơn Giá (VND/m²)</th>
+                <th>Diện Tích (m²)</th>
+                <th>Hành Động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gd, iterStat : ${danhSachGiaoDich}">
+                <td th:text="${iterStat.index + 1}"></td>
+                <td th:text="${gd.maGiaoDich}"></td>
+                <td th:text="${gd.khachHang.tenKhachHang}"></td>
+                <td th:text="${gd.loaiDichVu}"></td>
+                <td th:text="${gd.ngayGiaoDich}"></td>
+                <td th:text="${#numbers.formatDecimal(gd.donGia, 0, 'COMMA', 0, 'POINT')}"></td>
+                <td th:text="${gd.dienTich}"></td>
+                <td>
+                    <a th:href="@{/giao-dich/chi-tiet/{id}(id=${gd.maGiaoDich})}" class="btn btn-info">📄 Chi Tiết</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(danhSachGiaoDich)}">
+                <td colspan="8" style="text-align: center; padding: 20px; color: #888;">Không có giao dịch nào.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+

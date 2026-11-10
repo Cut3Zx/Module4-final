@@ -1,0 +1,9 @@
+com\example\quanlygiaodich\repository\GiaoDichRepository.class
+com\example\quanlygiaodich\service\KhachHangService.class
+com\example\quanlygiaodich\model\GiaoDich.class
+com\example\quanlygiaodich\service\GiaoDichService.class
+com\example\quanlygiaodich\QuanLyGiaoDichApplication.class
+com\example\quanlygiaodich\model\KhachHang.class
+com\example\quanlygiaodich\controller\GiaoDichController.class
+com\example\quanlygiaodich\dto\GiaoDichDTO.class
+com\example\quanlygiaodich\repository\KhachHangRepository.class
